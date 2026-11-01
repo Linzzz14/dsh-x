@@ -1,0 +1,69 @@
+{
+  "name": "dsh-x",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DeepSeek Harness plugin suite: delete sessions today, more to come. | DSH 插件套件：目前支持删除会话。",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "pretest": "npm run build",
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "author": "Linzzz14",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Linzzz14/dsh-x.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Linzzz14/dsh-x/issues"
+  },
+  "homepage": "https://github.com/Linzzz14/dsh-x",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek-harness-plugin",
+    "cordis",
+    "session",
+    "delete",
+    "cleanup"
+  ],
+  "dsh": {
+    "displayName": "DSH X",
+    "description": "DSH 插件套件：目前支持删除会话。",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0-rc <5"
+  },
+  "engines": {
+    "node": ">=22.15"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

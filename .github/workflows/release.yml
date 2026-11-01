@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: package.json version matches the tag
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "package.json says v$version, tag is $GITHUB_REF_NAME" >&2
+            exit 1
+          fi
+
+      - run: npm run build
+
+      - name: Committed artifacts match src/
+        run: git diff --exit-code -- lib
+
+      - run: npm test
+
+      - run: |
+          mkdir -p dist
+          npm pack --pack-destination dist
+
+      # A fixed asset name keeps /releases/latest/download/dsh-x.tgz stable
+      # across versions; the version lives in package.json inside the tarball.
+      - run: mv dist/dsh-x-*.tgz dist/dsh-x.tgz
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/dsh-x.tgz --title "$GITHUB_REF_NAME" --generate-notes

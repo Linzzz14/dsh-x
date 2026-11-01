@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # lib/ is committed because `github:` installs read the repository as-is.
+      # A stale artifact would ship broken code, so fail instead of rebuilding.
+      - name: Committed artifacts match src/
+        run: git diff --exit-code -- lib
+
+      - run: npm test

@@ -1,0 +1,5 @@
+# dsh-x bundle patch: mount the host half. The browser half joins the client
+# module graph automatically through `dsh.client` and `exports["./client"]`.
+- insert:
+    - id: dsh-x
+      name: 'dsh-x'
