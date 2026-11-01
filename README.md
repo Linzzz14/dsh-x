@@ -27,7 +27,7 @@ dsh plugin --profile web add https://github.com/Linzzz14/dsh-x/releases/latest/d
 
 会话行「…」菜单的最后一项，点击后弹出与原生「删除工作区」相同的确认框。
 
-![会话菜单中的「删除会话」](docs/images/delete-session.webp)
+<img src="docs/images/delete-session.webp" width="360" alt="会话菜单中的「删除会话」">
 
 删除会清理：
 

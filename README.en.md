@@ -28,7 +28,7 @@ If it does not take effect, restart the client.
 The last item of the session row "…" menu. It opens the same confirmation dialog as
 the native *Delete workspace* action.
 
-![Delete session in the session row menu](docs/images/delete-session.webp)
+<img src="docs/images/delete-session.webp" width="420" alt="Delete session in the session row menu">
 
 Deleting removes:
 
